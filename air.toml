@@ -1,0 +1,13 @@
+# air.toml
+
+# Set the path to your main Go file
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  bin = "./tmp/main"
+  cmd = "echo 'Precompile...' && pnpm run build && go build -o ./tmp/main ."
+  delay = 1000
+[log]
+  level = "debug"
+
