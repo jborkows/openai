@@ -6,7 +6,10 @@
     <!-- Include Tailwind CSS -->
 	<link href="/static/css/output.css?version={{.Version}}" rel="stylesheet">
     <!-- Include htmx JavaScript library -->
-    <script src="/static/javascript/htmx.min.js"></script>
+    <!-- <script src="/static/javascript/htmx.min.js"></script> -->
+	<!-- <script src="/static/javascript/ext/sse.js"></script> -->
+<script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>	
+<script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
 </head>
 <body>
     <div class="container mx-auto mt-5">
@@ -16,6 +19,16 @@
         </div>
         <div id="dynamic-content" class="mt-3"></div>
     </div>
+	<div class="container" hx-ext="sse" sse-connect="/example" sse-swap= "exampleMessage" hx-swap="afterbegin" >
+		...
+	</div>
+	<script>
+		 htmx.on("htmx:sseError", function(evt) {
+			console.log("Error on sse");
+		});
+		</script>
+
+</body>
 </body>
 </html>
 

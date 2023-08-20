@@ -14,6 +14,7 @@ func main() {
 	// Set up the routes
 	http.HandleFunc("/", handlers.IndexHandler)
 	http.HandleFunc("/update", handlers.UpdateHandler)
+	http.HandleFunc("/example", handlers.ExampleSSE)
 
 	// Serve static files
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
