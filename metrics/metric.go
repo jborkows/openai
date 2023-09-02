@@ -1,6 +1,10 @@
 package metrics
 
-import "github.com/prometheus/client_golang/prometheus"
+import (
+	"net/http"
+
+	"github.com/prometheus/client_golang/prometheus"
+)
 
 var (
 	httpRequestsTotal = prometheus.NewCounterVec(
@@ -18,4 +22,12 @@ func init() {
 
 func IncrementHTTPRequestsTotal(code, method string) {
 	httpRequestsTotal.WithLabelValues(code, method).Inc()
+}
+
+func ReportSuccess(request *http.Request) {
+	httpRequestsTotal.WithLabelValues("200", request.Method).Inc()
+}
+
+func ReportFailure(request *http.Request) {
+	httpRequestsTotal.WithLabelValues("500", request.Method).Inc()
 }

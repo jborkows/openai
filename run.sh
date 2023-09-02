@@ -4,5 +4,5 @@
 # pnpm start 2> tailwind.log&
 
 # Start the Go server using air
-air -c air.toml
+op run --env-file .env -- air -c air.toml
 

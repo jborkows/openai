@@ -18,11 +18,28 @@
             <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-green-900">Update Content</button>
         </div>
         <div id="dynamic-content" class="mt-3"></div>
+
+        <div hx-get="/clear" hx-trigger="click" hx-target="#example">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-green-900">Clear example Content</button>
+        </div>
     </div>
-	<div class="container" hx-ext="sse" sse-connect="/example" sse-swap= "exampleMessage" hx-swap="afterbegin" >
+<h1>Ask a Question</h1>
+    <form hx-post="/question" hx-target="#result" hx-swap="innerHTML">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" required><br><br>
+        
+        <button type="submit">Ask</button>
+    </form>
+    
+    <div id="result"></div>
+
+	<div id="example">
+	<div id="exampleSSE" class="container" hx-ext="sse" sse-connect="/exampleSSE" sse-swap= "exampleMessage" hx-swap="afterbegin" >
+	
 		...
 	</div>
-	<script>
+	</div> 
+		<script>
 		 htmx.on("htmx:sseError", function(evt) {
 			console.log("Error on sse");
 		});

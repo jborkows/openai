@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat gpt for fun</title>
+
+	<link href="/static/css/output.css?version={{.Version}}" rel="stylesheet">
+<script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>	
+
+</head>
+<body>
+    <header>
+		<ul hx-boost="true">
+			<li><a href="/">Home</a></li>
+			<li><a href="/chats">Chats</a></li>
+			<li><a href="/images">Images</a></li>
+		</ul>
+    </header>
+    
+    <main>
+        {{.Content}}
+    </main>
+    
+    <footer>
+		Fun page
+    </footer>
+</body>
+</html>
+
