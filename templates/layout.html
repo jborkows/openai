@@ -6,6 +6,9 @@
 	<link href="/static/css/output.css?version={{.Version}}" rel="stylesheet">
 <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>	
 
+<script src="/static/javascript/app.js?version={{.Version}}" defer>
+
+</script>
 </head>
 <body>
     <header>
@@ -23,6 +26,9 @@
     <footer>
 		Fun page
     </footer>
+	<dialog id="errorDialog">
+		<div id="errorDialogContent"></div>
+	</dialog>
 </body>
 </html>
 

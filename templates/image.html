@@ -1,8 +1,3 @@
-<script>
-	document.body.addEventListener("htmx:responseError", function(evt) {
-		alert("Cannot show image");
-	});
-</script>
 <form hx-post="/images"   >
 	<label>Suggestion for image</label>
 	<input type="text" name="prompt"></input>
