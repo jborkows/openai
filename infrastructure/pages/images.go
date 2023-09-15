@@ -15,6 +15,9 @@ func Image(httpResponseWriter http.ResponseWriter, httpRequest *http.Request) {
 	if httpRequest.Method == "GET" {
 		RenderSite(httpResponseWriter, httpRequest, &ContentDefinition{templateFile: "image.html"})
 	} else if httpRequest.Method == "POST" {
+		// sleep for 5 seconds
+		// time.Sleep(5 * time.Second)
+		// http.Error(httpResponseWriter, "Test error", http.StatusBadRequest)
 		generateImage(httpResponseWriter, httpRequest)
 	} else {
 		http.Error(httpResponseWriter, "Method not allowed", http.StatusMethodNotAllowed)

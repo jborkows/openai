@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -115,7 +114,7 @@ func (t *LoggingTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 		return nil, err
 	}
 	req.Body.Close()
-	req.Body = ioutil.NopCloser(&requestBodyCopy)
+	req.Body = io.NopCloser(&requestBodyCopy)
 
 	// Log the request body (copy)
 	fmt.Println("Request Body:", requestBodyCopy.String())
@@ -133,7 +132,7 @@ func (t *LoggingTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 		return nil, err
 	}
 	resp.Body.Close()
-	resp.Body = ioutil.NopCloser(&responseBodyCopy)
+	resp.Body = io.NopCloser(&responseBodyCopy)
 
 	// Log the response body (copy)
 	fmt.Println("Response Body:", responseBodyCopy.String())

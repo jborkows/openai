@@ -1,2 +1,2 @@
-<button hx-get="/images" hx-target="main" hx-headers='{"myPartial": "true"}'  >Generate another</button>
+<button hx-get="/images" hx-target="main" hx-push-history="true">Generate another</button>
 <img src="data:image/png;base64,{{.ImageSource}}" alt="{{.Prompt}}">

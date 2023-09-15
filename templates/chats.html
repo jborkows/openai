@@ -1,0 +1,13 @@
+<form hx-post="/chats" hx-swap="innerHtml" class="bg-gray-300 px-3 py-2">
+	<input type="text" name="message" />
+	<button type="submit">Send</button>
+	<!-- <button type="submit" value="Send" /> -->
+</form>
+
+<div>
+	<div id="messages" hx-ext="sse" sse-connect="/chats/sse" sse-swap="message" hx-swap="beforebegin" hx-target="#content">
+	</div>
+	<div id="content">
+		...
+	</div>
+</div>

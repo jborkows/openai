@@ -19,6 +19,8 @@ func RegisterRouting() {
 
 	http.HandleFunc("/", pages.Home)
 	http.HandleFunc("/images", pages.Image)
+	http.HandleFunc("/chats", pages.Chats)
+	http.HandleFunc("/chats/", pages.Chats)
 
 	// Serve static files
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))

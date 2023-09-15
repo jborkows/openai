@@ -15,21 +15,32 @@ type ContentDefinition struct {
 }
 
 func RenderSite(response http.ResponseWriter, request *http.Request, content *ContentDefinition) {
-
-	if request.Header.Get("myPartial") == "true" {
+	if request.Header.Get("HX-Boosted") == "true" {
+		fragment(content, request, response)
+	} else if request.Header.Get("HX-Request") == "true" {
 		fragment(content, request, response)
 	} else {
 		fullPage(content, request, response)
 	}
+}
 
-	// fullPage(content, request, response)
+type Link struct {
+	Url   string
+	Label string
 }
 
 func fullPage(content *ContentDefinition, request *http.Request, response http.ResponseWriter) {
+
+	links := []Link{
+		{Url: "/", Label: "Home"},
+		{Url: "/chats", Label: "Chats"},
+		{Url: "/images", Label: "Images"},
+	}
 	data := struct {
 		Content template.HTML
+		Links   []Link
 		Version string
-	}{Version: version()}
+	}{Version: version(), Links: links}
 	Content, err := renderTemplate(content)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
