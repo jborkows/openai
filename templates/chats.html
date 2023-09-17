@@ -5,10 +5,9 @@
 </form>
 
 <div>
-	<div id="messages" hx-ext="sse" sse-connect="/chats/sse" sse-swap="message" hx-swap="beforebegin" hx-target="#content">
+	<div id="messages" hx-ext="sse" sse-connect="/chats/sse" sse-swap="message" hx-swap="beforeend" hx-target="#content">
 	</div>
 	<div id="content">
-		...
 	</div>
 <div id="see_message_end"></div>
 </div>

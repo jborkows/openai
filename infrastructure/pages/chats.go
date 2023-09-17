@@ -54,10 +54,10 @@ func sse(response http.ResponseWriter, ch <-chan string) {
 			// 		continue
 			// 	}
 			log.Printf("Sending message: %s", value)
-			value = strings.ReplaceAll(value, "\r\n", "<br>")
-			value = strings.ReplaceAll(value, "\n", "<br>")
+			value = strings.ReplaceAll(value, "\r\n", "\\n")
+			value = strings.ReplaceAll(value, "\n", "\\n")
 			value = strings.ReplaceAll(value, " ", "&nbsp;")
-			// value = strings.ReplaceAll(value, "\t", "&nbsp;")
+			value = strings.ReplaceAll(value, "\t", "&nbsp;&nbsp;&nbsp;&nbsp;")
 			fmt.Fprintf(response, "data: %s\n\n", value)
 			response.(http.Flusher).Flush()
 		}

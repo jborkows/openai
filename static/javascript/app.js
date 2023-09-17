@@ -20,4 +20,13 @@ function init() {
       .getElementById("see_message_end")
       .scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
   });
+  function magic() {
+    const content = document.getElementById("content");
+    content.innerHTML = content.innerHTML
+      .replace(/&nbsp;/g, " ")
+      .replace(/\\n/g, "<br>")
+      .replace(/&gt;/g, ">")
+      .replace(/&lt;/g, "<");
+  }
+  window.magic = magic;
 }
