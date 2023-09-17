@@ -15,4 +15,9 @@ function init() {
     dialog.showModal();
   };
   document.body.addEventListener("htmx:responseError", window.errorHandler);
+  document.body.addEventListener("htmx:sseMessage", function (evt) {
+    document
+      .getElementById("see_message_end")
+      .scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+  });
 }
