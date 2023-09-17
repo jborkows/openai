@@ -1,11 +1,9 @@
 package openai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
 	"strings"
 )
 
@@ -27,28 +25,10 @@ type Event struct {
 	Choices []Choice `json:"choices"`
 }
 
-func callOpenAI2(url string, payload []byte) (*http.Response, error) {
+func Question(message string, output chan<- string) {
+	// response := response_wrapper(output)
+	response := output
 
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
-	if err != nil {
-		fmt.Println("Error creating request:", err)
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+apiKey)
-
-	client := &http.Client{
-		// Transport: &LoggingTransport{Transport: http.DefaultTransport},
-	}
-	resp, err := client.Do(req)
-
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-func Question(message string, response chan<- string) {
 	log.Printf("OpenAIHandler stream called with question %s", message)
 	payload := []byte(`{
 		"model": "gpt-3.5-turbo",
@@ -65,7 +45,7 @@ func Question(message string, response chan<- string) {
 		]
 	}`)
 
-	resp, error := callOpenAI2(url("chat/completions"), payload)
+	resp, error := callOpenAI(url("chat/completions"), payload, &CallOpenAIConfig{LogResponseImmediatelly: false})
 	if error != nil {
 		log.Printf("Error calling OpenAI %s", error)
 		response <- "Error calling OpenAI"
@@ -127,6 +107,7 @@ func Question(message string, response chan<- string) {
 				// log.Printf("Answer: '%s'", answer)
 				concatanatedEvents += answer
 			}
+
 			log.Printf("Sum up Answer: '%s'", concatanatedEvents)
 			response <- concatanatedEvents
 		}

@@ -5,12 +5,12 @@ import (
 	"log"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/jborkows/openai/metrics"
 	"github.com/jborkows/openai/openai"
 )
 
+// TODO: make it thread safe
 var communication = make(chan string, 5000)
 
 func Chats(rw http.ResponseWriter, req *http.Request) {
@@ -44,16 +44,8 @@ func sse(response http.ResponseWriter, ch <-chan string) {
 	response.Header().Set("Connection", "keep-alive")
 	response.Header().Set("Access-Control-Allow-Origin", "*") // Enable CORS for testing
 	//execute code every 1 second
-	ticker := time.NewTicker(1 * time.Second)
-	counter := 0
 	for {
 		select {
-		case <-ticker.C:
-			//send message to client
-			counter++
-			// fmt.Fprintf(response, "data: %d\n\n", counter)
-			// response.(http.Flusher).Flush()
-			//TODO replace communication with channel or object which contains channel
 		case value, _ := <-communication:
 			// case value, ok := <-ch:
 			// 	if !ok {

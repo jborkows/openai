@@ -55,7 +55,7 @@ func GenerateImage(prompt string) ([]byte, error) {
 		return nil, err
 	}
 
-	resp, err := callOpenAI(url, requestBody)
+	resp, err := callOpenAI(url, requestBody, &CallOpenAIConfig{LogResponseImmediatelly: true})
 	if err != nil {
 		return nil, err
 	}
@@ -79,8 +79,21 @@ func GenerateImage(prompt string) ([]byte, error) {
 	return decodedData, nil
 
 }
+func logableClient(logResponseImmediatelly bool) *http.Client {
+	if logResponseImmediatelly {
+		return &http.Client{
+			Transport: &LoggingTransport{Transport: http.DefaultTransport},
+		}
+	} else {
+		return &http.Client{}
+	}
+}
 
-func callOpenAI(url string, payload []byte) (*http.Response, error) {
+type CallOpenAIConfig struct {
+	LogResponseImmediatelly bool
+}
+
+func callOpenAI(url string, payload []byte, config *CallOpenAIConfig) (*http.Response, error) {
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
@@ -91,9 +104,7 @@ func callOpenAI(url string, payload []byte) (*http.Response, error) {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+apiKey)
 
-	client := &http.Client{
-		Transport: &LoggingTransport{Transport: http.DefaultTransport},
-	}
+	client := logableClient(config.LogResponseImmediatelly)
 	resp, err := client.Do(req)
 
 	if err != nil {
