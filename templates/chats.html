@@ -1,13 +1,6 @@
-
+<h3>Start new chat</h3>
 <form hx-post="/chats" hx-swap="innerHtml" class="bg-gray-300 px-3 py-2">
 	<input type="text" name="message" />
 	<button type="submit">Send</button>
 </form>
 
-<div>
-	<div id="messages" hx-ext="sse" sse-connect="/chats/sse" sse-swap="message" hx-swap="beforeend" hx-target="#content">
-	</div>
-	<div id="content">
-	</div>
-<div id="see_message_end"></div>
-</div>
